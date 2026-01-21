@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('campaign_email_list', function (Blueprint $table) {
+            $table->foreignId('campaign_id')->constrained('campaigns')->onDelete('cascade');
+            $table->foreignId('email_list_id')->constrained('email_lists')->onDelete('cascade');
+            $table->timestamps();
+            
+            $table->primary(['campaign_id', 'email_list_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('campaign_email_list');
+    }
+};
